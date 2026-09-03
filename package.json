@@ -1,5 +1,5 @@
 {
-  "name": "react-course-dashboard",
+  "name": "CalendArrr",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "json-server": "json-server db.json --port 3001"
+    "json-server": "json-server --watch src/data/db.json --port 3002"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
