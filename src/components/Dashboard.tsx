@@ -1,6 +1,6 @@
 // import { NoteDetails } from "./NoteDetails";
-// import { DashboardHeader } from "./DashboardHeader";
-import type { DashboardProps } from "../types/PropTypes";
+import { DashboardHeader } from "./DashboardHeader";
+import type { DashboardHeaderProps, DashboardProps } from "../types/PropTypes";
 // import type { DashboardProps, NoteEditorProps } from "../types/PropTypes";
 // import Editor from "./Editor";
 import { useState } from "react";
@@ -14,9 +14,13 @@ export default function Dashboard({ currentUser }: DashboardProps) {
     //     activeNote: selectedNote
     // }
 
+    const dashboardHeaderProps: DashboardHeaderProps = {
+        currentUser: currentUser
+    }
+
     return (
         <main className="flex flex-col h-screen bg-slate-300">
-            {/* <DashboardHeader /> */}
+            <DashboardHeader {...dashboardHeaderProps} />
             <section className="flex flex-row grow">
                 {/* <div className="w-1/2 note-list bg-slate-300">
                     <NoteDetails currentUser={currentUser} />

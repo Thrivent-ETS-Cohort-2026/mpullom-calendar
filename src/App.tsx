@@ -7,7 +7,7 @@ import Dashboard from "./components/Dashboard";
 export default function App() {
   const dummyUser: User =
   {
-    "email": "calvin@mail.com",
+    "email": "matt@mail.com",
     "password": "1234",
     "id": 1
   }
@@ -27,7 +27,7 @@ const dashboardProps: DashboardProps = {
 useEffect(() => { handlePageSwitch }, [loginStatus])
 
 function handlePageSwitch() {
-  if (!loginStatus) {
+  if (loginStatus) {
     return <Landing {...landingProps} />
   } else {
     return <Dashboard {...dashboardProps}/>

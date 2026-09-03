@@ -8,3 +8,7 @@ export interface LandingProps {
 export interface DashboardProps {
     currentUser: User;
 }
+
+export interface DashboardHeaderProps {
+    currentUser: User;
+}
