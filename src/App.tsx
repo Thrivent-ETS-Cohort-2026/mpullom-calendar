@@ -1,8 +1,8 @@
 function App() {
   return (
-    <>
+    <div className="text-slate-500">
       Hello
-    </>
+    </div>
   )
 }
 
