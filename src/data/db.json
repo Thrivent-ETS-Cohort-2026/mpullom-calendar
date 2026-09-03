@@ -10,5 +10,25 @@
       "password": "1234123",
       "id": 2
     }
+  ],
+  "upcomingEvents": [
+    {
+      "name": "Dano Festival",
+      "day": "09/06/2026",
+      "time": "3:00PM PST",
+      "id": 1
+    },
+    {
+      "name": "Smash Bros Sunday",
+      "day": "09/06/2026",
+      "time": "3:00PM PST",
+      "id": 2
+    },
+        {
+      "name": "Coffee Date",
+      "day": "09/06/2026",
+      "time": "3:00PM PST",
+      "id": 3
+    }
   ]
 }

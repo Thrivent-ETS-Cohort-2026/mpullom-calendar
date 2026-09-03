@@ -77,6 +77,7 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
             createUser({
                 email: emailInput,
                 password: passInput,
+                eventList: []
             })
         }
     }

@@ -1,4 +1,5 @@
-import type { User } from "./DataTypes"
+import type { User, CalendarEventType } from "./DataTypes"
+import type { ButtonHTMLAttributes } from "react";
 
 export interface LandingProps {
     callbackToggle: (toggle: boolean) => void;
@@ -11,4 +12,12 @@ export interface DashboardProps {
 
 export interface DashboardHeaderProps {
     currentUser: User;
+}
+
+export interface EventProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+    calendarEvent: CalendarEventType
+}
+
+export interface UserEventsProps {
+    currentUser: User
 }

@@ -9,6 +9,7 @@ export default function App() {
   {
     "email": "matt@mail.com",
     "password": "1234",
+    "eventList": [2, 3],
     "id": 1
   }
 
