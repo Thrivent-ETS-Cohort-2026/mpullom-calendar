@@ -28,7 +28,7 @@ const dashboardProps: DashboardProps = {
 useEffect(() => { handlePageSwitch }, [loginStatus])
 
 function handlePageSwitch() {
-  if (loginStatus) {
+  if (!loginStatus) {
     return <Landing {...landingProps} />
   } else {
     return <Dashboard {...dashboardProps}/>

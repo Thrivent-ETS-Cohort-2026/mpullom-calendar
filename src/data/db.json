@@ -3,11 +3,13 @@
     {
       "email": "matt@mail.com",
       "password": "1234",
+      "eventList": [2, 3],
       "id": 1
     },
     {
-      "email": "ma!@mail.com",
+      "email": "kai@mail.com",
       "password": "1234123",
+      "eventList": [],
       "id": 2
     }
   ],

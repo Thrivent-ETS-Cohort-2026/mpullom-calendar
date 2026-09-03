@@ -87,7 +87,7 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
         <div className="h-screen flex flex-col justify-center items-center bg-slate-800 text-slate-50">
 
             <h1 className="w-3xl text-center text-7xl mb-10">
-                NotePad--
+                Caland Arrr
             </h1>
 
             <div className="w-3xl border p-5 bg-slate-700">
