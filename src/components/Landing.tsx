@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import type { User } from "../types/DataTypes.ts";
 import type { LandingProps } from "../types/PropTypes.ts";
 
-// export default function Landing({callbackToggle, callbackUser}: LandingProps) {
-export default function Landing() {
+export default function Landing({callbackToggle, callbackUser}: LandingProps) {
 
     const [emailInput, setEmailInput] = useState<string>("");
     const [passInput, setPassInput] = useState<string>("");
@@ -56,18 +55,18 @@ export default function Landing() {
     }
 
     // Login
-    // function handleLogin() {
-    //     // if email and password match
-    //     const user: User | undefined = extData.find((user) => user.email === emailInput && user.password === passInput)
-    //     if (user){
-    //         // render dashboard, unmount landing.
-    //         callbackToggle(true)
-    //         callbackUser(user)
-    //         // use callback passed from App prop.
-    //     } else {
-    //         alert("Incorrect email and/or password.");
-    //     }
-    // }
+    function handleLogin() {
+        // if email and password match
+        const user: User | undefined = extData.find((user) => user.email === emailInput && user.password === passInput)
+        if (user){
+            // render dashboard, unmount landing.
+            callbackToggle(true)
+            callbackUser(user)
+            // use callback passed from App prop.
+        } else {
+            alert("Incorrect email and/or password.");
+        }
+    }
 
     // Signup
     function handleSignUp() {
@@ -114,10 +113,10 @@ export default function Landing() {
                         Sign Up
                     </button>
 
-                    {/* <button className="border rounded hover:bg-slate-600 active:bg-slate-500"
+                    <button className="border rounded hover:bg-slate-600 active:bg-slate-500"
                         onClick={() => handleLogin()}>
                         Login
-                    </button> */}
+                    </button>
                 </div>
                 
             </div>
