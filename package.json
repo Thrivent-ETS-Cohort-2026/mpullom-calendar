@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "json-server": "json-server --watch src/data/db.json --port 3002"
+    "json-server": "json-server src/data/db.json --port 3002"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

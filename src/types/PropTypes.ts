@@ -8,6 +8,7 @@ export interface LandingProps {
 
 export interface DashboardProps {
     currentUser: User;
+    callbackAssignEvent: (eventID: number) => Promise<void>;
 }
 
 export interface DashboardHeaderProps {
@@ -19,5 +20,6 @@ export interface EventProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 }
 
 export interface UserEventsProps {
-    currentUser: User
+    currentUser: User;
+    callbackAssignEvent: (eventID: number) => Promise<void>;
 }
