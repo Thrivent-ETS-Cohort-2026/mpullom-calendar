@@ -3,7 +3,10 @@
     {
       "eventList": [
         2,
-        3
+        3,
+        77,
+        78,
+        79
       ],
       "id": 1
     },
@@ -18,18 +21,21 @@
     {
       "name": "Dano Festival",
       "when": "2026-09-04T09:22:00.000Z",
+      "location": "Seattle",
       "description": "Korean festival for the end of Summer.",
       "id": 1
     },
     {
       "name": "Smash Bros Sunday",
       "when": "2026-09-04T09:22:00.000Z",
+      "location": "Seattle",
       "description": "Competitive friendly matches with Emilio.",
       "id": 2
     },
     {
       "name": "Coffee Date",
       "when": "2026-09-04T09:22:00.000Z",
+      "location": "Seattle",
       "description": "Go to Walnut coffee Wendy.",
       "id": 3
     }

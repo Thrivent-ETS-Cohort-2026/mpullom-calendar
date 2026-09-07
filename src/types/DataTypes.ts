@@ -1,4 +1,5 @@
 export interface User {
+    name: string;
     email: string;
     password: string;
     eventList: number[];
@@ -8,6 +9,7 @@ export interface User {
 export interface CalendarEventType {
     name: string;
     when: Date;
+    location: string;
     description: string;
     id?: number;
 }

@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 export default function App() {
   const dummyUser: User =
   {
+    "name": "Dummy",
     "email": "dummy@mail.com",
     "password": "1234",
     "eventList": [2, 3],
@@ -53,6 +54,7 @@ async function assignEvent(eventID: number): Promise<void> {
       if (!response.ok) throw new Error("PATCH request failed.");
 
       const updatedUser: User = {
+        name: user.name,
         email: user.email,
         password: user.password,
         eventList: updatedEventList,

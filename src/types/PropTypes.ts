@@ -21,5 +21,10 @@ export interface EventProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 
 export interface UserEventsProps {
     currentUser: User;
+    callBackView: (eventId?: number) => void;
     callbackAssignEvent: (eventID: number) => Promise<void>;
+}
+
+export interface EditorProps {
+    activeEvent: CalendarEventType;
 }

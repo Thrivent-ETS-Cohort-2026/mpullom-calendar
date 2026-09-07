@@ -4,17 +4,19 @@ import type { DashboardHeaderProps } from "../types/PropTypes";
 
 export function DashboardHeader({ currentUser }: DashboardHeaderProps) {
     const [fallbackName, setFallbackName] = useState<string>("")
+
     function displayName(userEmail: string) {
         return userEmail.split('@')[0]
     }
 
     function handleDisplay(user: User){
         if (user != undefined){
-            setFallbackName(displayName(user.email))
+            setFallbackName(user.name)
         }
     }
 
-    useEffect(() => {handleDisplay}, [currentUser])
+    useEffect(() => {if (currentUser) handleDisplay(currentUser)}, [currentUser])
+    
     return (
         <header className="bg-slate-300 p-3">
             <h1 className="text-2xl font-extrabold text-slate-500">Calend Arrr</h1>

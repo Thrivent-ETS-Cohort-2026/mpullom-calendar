@@ -3,7 +3,7 @@ import { CalendarEvent } from './CalendarEvent';
 import { type UserEventsProps } from '../types/PropTypes';
 import { type CalendarEventType, type User } from '../types/DataTypes';
 
-export function UserEvents({ currentUser, callbackAssignEvent }: UserEventsProps) {
+export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: UserEventsProps) {
     const [searchTerm, setSearchTerm] = useState<string>("");
 
     const [calendarEvents, setCalendarEvents] = useState<CalendarEventType[]>([]);
@@ -12,6 +12,7 @@ export function UserEvents({ currentUser, callbackAssignEvent }: UserEventsProps
 
     const defaultEvent: CalendarEventType = {
         name: "New Event",
+        location: "Seattle",
         when: new Date(),
         description: "What Arrr ye up to?"
     };
@@ -19,6 +20,7 @@ export function UserEvents({ currentUser, callbackAssignEvent }: UserEventsProps
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
+
 
     useEffect(() => {
         async function fetchEvents(): Promise<void> {
@@ -107,7 +109,6 @@ export function UserEvents({ currentUser, callbackAssignEvent }: UserEventsProps
                     Create
                 </button>
             </div>
-
             {
                 filteredEvents.length === 0
                     ? <h1 className='font-bold text-slate-600 mb-2'>No Upcoming Events:</h1>
@@ -118,7 +119,7 @@ export function UserEvents({ currentUser, callbackAssignEvent }: UserEventsProps
                     <div key={calendarEvent.id} className="note-item-container text-slate-700 border-2 mb-1.5 rounded">
                         <CalendarEvent
                             calendarEvent={calendarEvent}
-                            onClick={() => console.log(calendarEvent.id)}
+                            onClick={() => callBackView(calendarEvent.id)}
                         />
                     </div>
                 ))

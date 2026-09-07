@@ -7,13 +7,13 @@ export function CalendarEvent({
 
   const eventDate = new Date(calendarEvent.when)
 
-  const monthAndYear = eventDate.toLocaleDateString('en-US', {
+  const monthYear = eventDate.toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
 
-  const timeWithAMPM = eventDate.toLocaleTimeString('en-US', {
+  const time = eventDate.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit',
     hour12: true
@@ -27,10 +27,10 @@ export function CalendarEvent({
     >
       <h2 className='inline-block w-1/2'> <span className='font-bold'>Name: </span>{calendarEvent.name}  </h2>
       <p className="inline-block w-1/2">
-        <span className="font-bold">Date:</span> {monthAndYear}
+        <span className="font-bold">Date:</span> {monthYear}
       </p>
       <p className="inline-block w-1/2">
-        <span className="font-bold">Time:</span> {timeWithAMPM}
+        <span className="font-bold">Time:</span> {time}
       </p>
     </button>
   );

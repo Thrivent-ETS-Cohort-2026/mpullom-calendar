@@ -4,12 +4,13 @@ import type { LandingProps } from "../types/PropTypes.ts";
 
 export default function Landing({callbackToggle, callbackUser}: LandingProps) {
 
+    const [nameInput, setNameInput] = useState<string>("");
     const [emailInput, setEmailInput] = useState<string>("");
     const [passInput, setPassInput] = useState<string>("");
 
     const [extData, setExtData] = useState<User[]>([]);
 
-    // CRUD Get
+    // CRUD Get for all Users
     useEffect(() => {
         (async (): Promise<void> => {
             try {
@@ -75,6 +76,7 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
         } else {
             // POST new user
             createUser({
+                name: nameInput,
                 email: emailInput,
                 password: passInput,
                 eventList: []
@@ -91,7 +93,14 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
             </h1>
 
             <div className="w-3xl border p-5 bg-slate-700">
-                
+                <div>
+                    <label htmlFor="name-input" className="w-1/2 text-right">Name: </label>
+                    <input type="email" id="email-input" className="w-1/2 border rounded" 
+                        value={nameInput}
+                        onChange={(change) => setEmailInput(change.target.value)}
+                    />
+                </div>
+
                 <div>
                     <label htmlFor="email-input" className="w-1/2 text-right">Email: </label>
                     <input type="email" id="email-input" className="w-1/2 border rounded" 
