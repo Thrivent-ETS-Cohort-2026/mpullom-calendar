@@ -11,7 +11,7 @@ export default function App() {
     "email": "dummy@mail.com",
     "password": "1234",
     "eventList": [2, 3],
-    "iRequests": [1],
+    "iRequests": [1, 2],
     "id": 1
   }
 
@@ -30,8 +30,9 @@ export default function App() {
 
   useEffect(() => { handlePageSwitch }, [loginStatus])
 
+  //Switch page if user validated
   function handlePageSwitch() {
-    if (!loginStatus) {
+    if (loginStatus) {
       return <Landing {...landingProps} />
     } else {
       return <Dashboard {...dashboardProps} />

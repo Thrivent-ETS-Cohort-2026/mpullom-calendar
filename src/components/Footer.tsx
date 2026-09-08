@@ -95,7 +95,7 @@ export default function Footer({ currentUser, callbackAssignEvent }: FooterProps
                     )}
                 </div>
                 <button
-                    className="px-4 py-2 text-xs bg-slate-100 text-blue-900 font-semibold rounded-xl hover:bg-white active:bg-blue-100 transition-colors shadow"
+                    className="px-4 py-2 text-xs bg-slate-100 text-slate-900  font-semibold rounded-xl hover:bg-slate-300 active:bg-slate-400 transition-colors shadow"
                     onClick={() => handleAccept()}
                 >
                     Accept
