@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { EditorProps } from "../types/PropTypes";
-import type { CalendarEventType } from "../types/DataTypes";
+import type { CalendarEventType, User } from "../types/DataTypes";
 
 export function Editor({ activeEvent, callBackView }: EditorProps) {
     const [notEditable, toggleEditable] = useState<boolean>(false);
@@ -12,6 +12,7 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
     const [dateState, setDateState] = useState<string>("")
     const [timeState, setTimeState] = useState<string>("")
     const [descriptionState, setDescriptionState] = useState<string>(activeEvent.description);
+    const [inviteName, setInviteName] = useState<string>("Invite yer shipmate...");
 
     const handleEdit = (): void => {
         if (notEditable) {
@@ -123,6 +124,55 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
         }
     }
 
+    async function getUser(email: string): Promise<User | undefined> {
+        try {
+            const response = await fetch("http://localhost:3002/users");
+            if (!response.ok) throw new Error("Response failed.");
+
+            const data: User[] = await response.json();
+            const invitee = data.find(data => data.email === email)
+
+            if (invitee != undefined) {
+                return invitee
+            }
+            else {
+                return undefined
+            }
+        } catch (error: any) {
+            throw new Error(error);
+        }
+    }
+
+    async function inviteUser(invitee: User) {
+        try {
+            if (activeEvent.id != undefined) {
+                const currentRequests = invitee.iRequests
+                const updatedRequests: Partial<User> = {iRequests: [...currentRequests, activeEvent.id]};
+                const response = await fetch(`http://localhost:3002/users/${invitee.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedRequests)
+                });
+                if (!response.ok) throw new Error("PATCH request failed.");
+            }
+            else {
+                throw new Error("activeEvent undefined")
+            }
+        } catch (error) {
+            console.error("Failed to PATCH to iRequests", error);
+            return null;
+        }
+    }
+
+
+    async function handleInvite(inviteeEmail: string) {
+        const invitee = await getUser(inviteeEmail)
+        console.log(invitee)
+        if (invitee != undefined) {
+            await inviteUser(invitee)
+        }
+    }
+
     return (
         <div className="flex flex-col h-full">
             <div className="flex justify-between align-baseline mb-1">
@@ -141,11 +191,6 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                     >
                         Delete
                     </button>
-                    <button className={`h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2`}
-
-                    >
-                        Invite
-                    </button>
                     <button className={`h-6 border border-slate-600 px-2 mr-2 ${editColor()}`}
                         onClick={() => handleEdit()}
                     >
@@ -157,6 +202,19 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                         Go back
                     </button>
                 </div>
+            </div>
+            <div className="flex justify-between align-baseline mb-1">
+                <input
+                    type="text"
+                    value={inviteName}
+                    onChange={(e) => setInviteName(e.target.value)}
+                    className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                />
+                <button className={`h-12 border border-slate-600 px-2 bg-slate-500 text-slate-50 rounded hover:bg-slate-600 active:bg-slate-400 mr-2 ml-2`}
+                    onClick={() => { handleInvite(inviteName) }}
+                >
+                    Invite
+                </button>
             </div>
             <div className="flex flex-row items-center gap-4 mb-4">
                 {/* Time Field */}

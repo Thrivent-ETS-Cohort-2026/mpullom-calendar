@@ -7,22 +7,17 @@
         2,
         3
       ],
+      "iRequests": [],
       "id": 1
     },
     {
       "email": "kai@mail.com",
       "password": "1234123",
       "eventList": [],
-      "id": 2
-    },
-    {
-      "email": "new@mail.com",
-      "password": "1234",
-      "eventList": [
-        4
+      "iRequests": [
+        2
       ],
-      "name": "new",
-      "id": 3
+      "id": 2
     }
   ],
   "upcomingEvents": [

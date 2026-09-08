@@ -1,12 +1,11 @@
 import { UserEvents } from "./UserEvents";
 import { DashboardHeader } from "./DashboardHeader";
-import type { DashboardHeaderProps, DashboardProps, EditorProps, UserEventsProps } from "../types/PropTypes";
-// import type { DashboardProps, NoteEditorProps } from "../types/PropTypes";
-// import Editor from "./Editor";
+import type { DashboardHeaderProps, DashboardProps, EditorProps, FooterProps, UserEventsProps } from "../types/PropTypes";
 import { useState } from "react";
 import merry from "../assets/merry.png";
 import { Editor } from './Editor';
 import type { CalendarEventType } from "../types/DataTypes";
+import Footer from "./Footer";
 
 
 export default function Dashboard({ currentUser, callbackAssignEvent }: DashboardProps) {
@@ -57,6 +56,10 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
         callBackView: () => handleViewToggle()
     }
 
+    const footerProps: FooterProps = {
+        currentUser: currentUser
+    }
+
     return (
         <main className="flex min-h-screen flex-col h-full w-full bg-slate-300 overflow-hidden">
             <DashboardHeader {...dashboardHeaderProps} />
@@ -74,14 +77,17 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
                 </div>
             </section>
 
-            {/* Ship image shrinks smoothly when viewEvent is true */}
-            <div className="flex justify-center items-end w-full shrink-0 py-2">
-                <img
-                    src={merry}
-                    alt="Luffy's ship"
-                    className={`object-contain transition-all duration-500 ease-in-out ${viewEvent ? "h-60" : "h-80"
-                        }`}
-                />
+            {/* Have the ship and footer overlap */}
+            <div className="relative w-full flex justify-center items-end shrink-0">
+                {/* Ship */}
+                <div className="relative z-10 pointer-events-none">
+                    <img
+                        src={merry}
+                        alt="Luffy's ship"
+                        className={`object-contain transition-all duration-500 ease-in-out drop-shadow-xl ${viewEvent ? "h-60" : "h-80"}`}
+                    />
+                </div>
+                <Footer {...footerProps} />
             </div>
         </main>
     )

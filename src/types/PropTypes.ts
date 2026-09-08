@@ -29,3 +29,7 @@ export interface EditorProps {
     activeEvent: CalendarEventType;
     callBackView: () => void;
 }
+
+export interface FooterProps {
+    currentUser: User;
+}

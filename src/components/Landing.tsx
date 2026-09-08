@@ -50,6 +50,7 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
                 email: newUser.email,
                 password: newUser.password,
                 eventList: newUser.eventList,
+                iRequests: [],
                 name: newUser.email.split('@')[0]
             }
 
@@ -87,7 +88,8 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
             createUser({
                 email: emailInput,
                 password: passInput,
-                eventList: []
+                eventList: [],
+                iRequests: []
             })
         }
     }
