@@ -11,6 +11,7 @@ export default function App() {
     "email": "dummy@mail.com",
     "password": "1234",
     "eventList": [2, 3],
+    "iRequests": [1],
     "id": 1
   }
 
@@ -30,7 +31,7 @@ export default function App() {
   useEffect(() => { handlePageSwitch }, [loginStatus])
 
   function handlePageSwitch() {
-    if (loginStatus) {
+    if (!loginStatus) {
       return <Landing {...landingProps} />
     } else {
       return <Dashboard {...dashboardProps} />
@@ -58,6 +59,7 @@ async function assignEvent(eventID: number): Promise<void> {
         email: user.email,
         password: user.password,
         eventList: updatedEventList,
+        iRequests: user.iRequests,
         id: user.id
       }
 

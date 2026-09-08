@@ -37,7 +37,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
         }
 
         fetchEvents();
-    }, []);
+    }, [currentUser]);
 
     function populateUserEvents(allEvents: CalendarEventType[]) {
         if (!currentUser?.eventList) return;

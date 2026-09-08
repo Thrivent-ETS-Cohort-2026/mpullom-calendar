@@ -32,4 +32,5 @@ export interface EditorProps {
 
 export interface FooterProps {
     currentUser: User;
+    callbackAssignEvent: (eventID: number) => Promise<void>;
 }

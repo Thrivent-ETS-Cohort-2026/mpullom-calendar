@@ -57,7 +57,8 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
     }
 
     const footerProps: FooterProps = {
-        currentUser: currentUser
+        currentUser: currentUser,
+        callbackAssignEvent: callbackAssignEvent
     }
 
     return (
