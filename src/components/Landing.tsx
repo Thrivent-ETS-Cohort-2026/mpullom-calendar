@@ -4,13 +4,12 @@ import type { LandingProps } from "../types/PropTypes.ts";
 
 export default function Landing({callbackToggle, callbackUser}: LandingProps) {
 
-    const [nameInput, setNameInput] = useState<string>("");
     const [emailInput, setEmailInput] = useState<string>("");
     const [passInput, setPassInput] = useState<string>("");
 
     const [extData, setExtData] = useState<User[]>([]);
 
-    // CRUD Get for all Users
+    // CRUD Get data for all Users
     useEffect(() => {
         (async (): Promise<void> => {
             try {
@@ -44,10 +43,20 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
     // CRUD Post
     async function createUser(newUser: User): Promise<void> {
         try {
+
+            //Mandate a default name that is the email before the @
+            newUser.email.split('@')[0]
+            const plusName: User = {
+                email: newUser.email,
+                password: newUser.password,
+                eventList: newUser.eventList,
+                name: newUser.email.split('@')[0]
+            }
+
             const response = await fetch("http://localhost:3002/users", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(newUser)
+                body: JSON.stringify(plusName)
             });
             if (!response.ok) throw new Error("Post request failed.");
         } catch (error: any) {
@@ -76,7 +85,6 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
         } else {
             // POST new user
             createUser({
-                name: nameInput,
                 email: emailInput,
                 password: passInput,
                 eventList: []
@@ -93,14 +101,6 @@ export default function Landing({callbackToggle, callbackUser}: LandingProps) {
             </h1>
 
             <div className="w-3xl border p-5 bg-slate-700">
-                <div>
-                    <label htmlFor="name-input" className="w-1/2 text-right">Name: </label>
-                    <input type="email" id="email-input" className="w-1/2 border rounded" 
-                        value={nameInput}
-                        onChange={(change) => setEmailInput(change.target.value)}
-                    />
-                </div>
-
                 <div>
                     <label htmlFor="email-input" className="w-1/2 text-right">Email: </label>
                     <input type="email" id="email-input" className="w-1/2 border rounded" 

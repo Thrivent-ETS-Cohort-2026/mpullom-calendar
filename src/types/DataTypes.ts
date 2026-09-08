@@ -1,9 +1,9 @@
 export interface User {
-    name: string;
     email: string;
     password: string;
     eventList: number[];
     id?: number;
+    name?: string;
 }
 
 export interface CalendarEventType {

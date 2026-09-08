@@ -5,12 +5,8 @@ import type { DashboardHeaderProps } from "../types/PropTypes";
 export function DashboardHeader({ currentUser }: DashboardHeaderProps) {
     const [fallbackName, setFallbackName] = useState<string>("")
 
-    function displayName(userEmail: string) {
-        return userEmail.split('@')[0]
-    }
-
     function handleDisplay(user: User){
-        if (user != undefined){
+        if (user.name != undefined){
             setFallbackName(user.name)
         }
     }
