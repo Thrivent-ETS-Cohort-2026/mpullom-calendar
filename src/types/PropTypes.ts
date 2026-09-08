@@ -27,4 +27,5 @@ export interface UserEventsProps {
 
 export interface EditorProps {
     activeEvent: CalendarEventType;
+    callBackView: () => void;
 }

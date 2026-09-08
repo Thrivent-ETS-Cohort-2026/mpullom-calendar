@@ -1,16 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { EditorProps } from "../types/PropTypes";
 import type { CalendarEventType } from "../types/DataTypes";
 
-export function Editor({ activeEvent }: EditorProps) {
-    const [editState, setEditState] = useState<boolean>(false);
+export function Editor({ activeEvent, callBackView }: EditorProps) {
+    const [notEditable, toggleEditable] = useState<boolean>(false);
+    const [isSaved, toggleSavedStatus] = useState<boolean>(false);
 
     const [nameState, setNameState] = useState<string>(activeEvent.name);
     const [locationState, setLocationState] = useState<string>(activeEvent.location);
     const [whenState, setWhenState] = useState<Date>(activeEvent.when);
+    const [dateState, setDateState] = useState<string>("")
+    const [timeState, setTimeState] = useState<string>("")
     const [descriptionState, setDescriptionState] = useState<string>(activeEvent.description);
 
-    const handleEdit = (): void => editState ? setEditState(false) : setEditState(true)
+    const handleEdit = (): void => {
+        if (notEditable) {
+            toggleEditable(false)
+        } else {
+            toggleSavedStatus(false)
+            toggleEditable(true)
+        }
+    }
+
+    //Format when field for display
+    useEffect(() => {
+        if (activeEvent?.when) {
+            const dateObj = new Date(activeEvent.when);
+
+            setTimeState(
+                dateObj.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                })
+            );
+
+            setDateState(
+                dateObj.toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })
+            )
+        }
+    }, [activeEvent]);
+
+    function getFormattedDate(): Date {
+        const combinedString = `${dateState} ${timeState}`.trim();
+        const newDate = new Date(combinedString);
+
+        if (isNaN(newDate.getTime())) {
+            alert("Date is formatted incorreclty.");
+            console.error("Date format is invalid, falling back to original date.");
+            return whenState;
+        }
+
+        return newDate;
+    }
+
+    const handleSave = () => {
+        const newDate = getFormattedDate();
+        setWhenState(newDate);
+
+        updateEvent({
+            name: nameState,
+            location: locationState,
+            when: newDate,
+            description: descriptionState
+        });
+    };
 
     // handle edit button color change
     function editColor(): string {
@@ -20,14 +78,26 @@ export function Editor({ activeEvent }: EditorProps) {
         }
 
         let activeColor: string = editColorMap.red;
-        editState ? activeColor = editColorMap.green : editColorMap.red;
-
+        notEditable ? (activeColor = editColorMap.red) : (activeColor = editColorMap.green);
         return activeColor;
     }
 
-    function handleDelete() {
+    async function deleteEvent() {
+        try {
+            const response = await fetch(`http://localhost:3002/upcomingEvents/${activeEvent.id}`, {
+                method: "DELETE"
+            });
+            if (!response.ok) throw new Error("Delete request failed.");
+            toggleSavedStatus(true)
+        } catch (error: any) {
+            throw new Error(error);
+        }
+    }
+
+    async function handleDelete() {
         if (confirm(`Delete Note: ${nameState}?`)) {
-            console.log("delete note");
+            await deleteEvent()
+            callBackView()
         }
     }
 
@@ -47,6 +117,7 @@ export function Editor({ activeEvent }: EditorProps) {
                 body: JSON.stringify(calendarEvent)
             });
             if (!response.ok) throw new Error("Post request failed.");
+            toggleSavedStatus(true)
         } catch (error: any) {
             throw new Error(error);
         }
@@ -57,7 +128,7 @@ export function Editor({ activeEvent }: EditorProps) {
             <div className="flex justify-between align-baseline mb-1">
                 <h2 className="grow mr-2">
                     <input
-                        disabled={!editState}
+                        disabled={!notEditable}
                         value={nameState}
                         onChange={(change) => { setNameState(change.target.value) }}
                         className="w-full font-bold text-2xl focus:outline-0"
@@ -65,44 +136,77 @@ export function Editor({ activeEvent }: EditorProps) {
                 </h2>
 
                 <div>
-                    <button className="h-6 border border-slate-600 rounded-2xl px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2"
+                    <button className="h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2"
                         onClick={() => handleDelete()}
                     >
                         Delete
                     </button>
-                    <button className={`h-6 border border-slate-600 rounded-2xl px-2 ${editColor()}`}
+                    <button className={`h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2`}
+
+                    >
+                        Invite
+                    </button>
+                    <button className={`h-6 border border-slate-600 px-2 mr-2 ${editColor()}`}
                         onClick={() => handleEdit()}
                     >
                         Edit
                     </button>
+                    <button className={`h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2`}
+                        onClick={() => callBackView()}
+                    >
+                        Go back
+                    </button>
                 </div>
             </div>
+            <div className="flex flex-row items-center gap-4 mb-4">
+                {/* Time Field */}
+                <div className="flex-1">
+                    <h3 className="mb-1 font-bold">Time</h3>
+                    <input
+                        type="text"
+                        disabled={!notEditable}
+                        value={timeState}
+                        onChange={(e) => setTimeState(e.target.value)}
+                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                    />
+                </div>
 
+                {/* Date Field */}
+                <div className="flex-1">
+                    <h3 className="mb-1 font-bold">Date</h3>
+                    <input
+                        type="text"
+                        disabled={!notEditable}
+                        value={dateState}
+                        onChange={(e) => setDateState(e.target.value)}
+                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                    />
+                </div>
+
+                {/* Location Field */}
+                <div className="flex-1">
+                    <h3 className="mb-1 font-bold">Location</h3>
+                    <input
+                        type="text"
+                        disabled={!notEditable}
+                        value={locationState}
+                        onChange={(e) => setLocationState(e.target.value)}
+                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                    />
+                </div>
+            </div>
+            <h3 className="text-left mb-2 font-bold">Description:</h3>
             <textarea
-                disabled={!editState}
+                disabled={!notEditable}
                 value={descriptionState}
                 onChange={(change) => { setDescriptionState(change.target.value) }}
                 className="grow resize-none w-full border rounded-2xl p-3 mb-2 bg-slate-200"
             />
-            <div className="flex justify-between">
-                <h3 className="mb-2 font-bold">Location</h3>
-            </div>
-            <textarea
-                disabled={!editState}
-                value={locationState}
-                onChange={(change) => { setLocationState(change.target.value) }}
-                className="resize-none w-full border rounded-2xl p-3 mb-4 bg-slate-200 h-12"
-            />
 
             <div className="flex justify-end">
-                <p className="inline mr-2">Saved Successfully!</p>
+                {isSaved && <p className="inline mr-2">Saved</p>}
                 <button className="border border-slate-600 rounded-2xl px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400"
-                    onClick={() => updateEvent({
-                        name: nameState,
-                        location: locationState,
-                        when: whenState,
-                        description: descriptionState
-                    })}
+                    onClick={() => { handleSave() }}
                 >
                     Save
                 </button>

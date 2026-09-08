@@ -9,7 +9,7 @@ import { Editor } from './Editor';
 import type { CalendarEventType } from "../types/DataTypes";
 
 
-export default function Dashboard({ currentUser, callbackAssignEvent}: DashboardProps) {
+export default function Dashboard({ currentUser, callbackAssignEvent }: DashboardProps) {
     const defaultEvent: CalendarEventType = {
         name: "New Event",
         location: "Seattle",
@@ -19,7 +19,7 @@ export default function Dashboard({ currentUser, callbackAssignEvent}: Dashboard
 
     const [viewEvent, setViewEvent] = useState<boolean>(false);
     const [activeEvent, setActiveEvent] = useState<CalendarEventType>(defaultEvent);
-  
+
     async function fetchEvent(noteId: number): Promise<void> {
         try {
             const response = await fetch(`http://localhost:3002/upcomingEvents/${noteId}`);
@@ -35,7 +35,7 @@ export default function Dashboard({ currentUser, callbackAssignEvent}: Dashboard
     const handleViewToggle = async (noteId?: number) => {
         if (viewEvent) {
             setViewEvent(false)
-        } 
+        }
         else {
             if (noteId) await fetchEvent(noteId)
             setViewEvent(true)
@@ -53,30 +53,34 @@ export default function Dashboard({ currentUser, callbackAssignEvent}: Dashboard
     }
 
     const editorProps: EditorProps = {
-        activeEvent: activeEvent
+        activeEvent: activeEvent,
+        callBackView: () => handleViewToggle()
     }
 
     return (
-        <main className="flex flex-col h-screen w-full bg-slate-300 overflow-hidden">
+        <main className="flex min-h-screen flex-col h-full w-full bg-slate-300 overflow-hidden">
             <DashboardHeader {...dashboardHeaderProps} />
 
             <section className="flex justify-center mt-auto px-4 min-h-0">
-                {viewEvent ? (                
-                    <div className="w-1/2 max-h-64 bg-[#c9ab9a] text-center rounded-xl p-4 overflow-y-auto shadow-md">
+                <div
+                    className={`w-1/2 bg-[#c9ab9a] text-center rounded-xl p-4 overflow-y-auto shadow-md transition-all duration-500 ease-in-out ${viewEvent ? "h-128 max-h-[80vh]" : "h-64 max-h-64"
+                        }`}
+                >
+                    {viewEvent ? (
                         <Editor {...editorProps} />
-                    </div>
-                ) : (
-                    <div className="w-1/2 max-h-64 bg-[#c9ab9a] text-center rounded-xl p-4 overflow-y-auto shadow-md">
+                    ) : (
                         <UserEvents {...userEventsProps} />
-                    </div>
-                )}
+                    )}
+                </div>
             </section>
 
+            {/* Ship image shrinks smoothly when viewEvent is true */}
             <div className="flex justify-center items-end w-full shrink-0 py-2">
                 <img
                     src={merry}
                     alt="Luffy's ship"
-                    className="h-50 w-auto object-contain"
+                    className={`object-contain transition-all duration-500 ease-in-out ${viewEvent ? "h-60" : "h-80"
+                        }`}
                 />
             </div>
         </main>
