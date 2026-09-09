@@ -39,7 +39,7 @@ export default function App() {
     }
   }
 
-  // Assign an event to a user
+// Assign an event to a user
 async function assignEvent(eventID: number): Promise<void> {
     try {
       console.log(user.eventList)

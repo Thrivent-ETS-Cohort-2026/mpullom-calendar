@@ -13,7 +13,8 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
         name: "New Event",
         location: "Seattle",
         when: new Date(),
-        description: "What Arrr ye up to?"
+        description: "What Arrr ye up to?",
+        attendees: []
     };
 
     const [viewEvent, setViewEvent] = useState<boolean>(false);
@@ -62,7 +63,7 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
     }
 
     return (
-        <main className="flex min-h-screen flex-col h-full w-full bg-slate-300 overflow-hidden">
+        <main className="flex min-h-screen flex-col h-full w-full bg-sky-300 overflow-hidden">
             <DashboardHeader {...dashboardHeaderProps} />
 
             <section className="flex justify-center mt-auto px-4 min-h-0">

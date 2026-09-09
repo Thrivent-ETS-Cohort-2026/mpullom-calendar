@@ -17,7 +17,8 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
         name: "New Event",
         location: "Seattle",
         when: new Date(),
-        description: "What Arrr ye up to?"
+        description: "What Arrr ye up to?",
+        attendees: []
     };
 
     const handleTimeChange1 = (e: ChangeEvent<HTMLInputElement>) => {
@@ -121,6 +122,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
 
     return (
         <>
+            <h1 className='text-2xl py-2 text-blue-800'>DashbArrrd</h1>
             <div className='flex justify-between items-center gap-2 mb-4'>
                 <label htmlFor="course-search" className='hidden'>
                     Search by Date
@@ -133,7 +135,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
                         placeholder="Time..."
                         value={timeSearch1}
                         onChange={handleTimeChange1}
-                        className="w-3/4 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 text-sm text-slate-100"
+                        className="w-3/4 rounded-lg border-2 border-sky-800 bg-sky-300 px-3.5 py-2 text-sm text-slate-700"
                     />
                     <input
                         id="course-search"
@@ -141,7 +143,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
                         placeholder="Date..."
                         value={dateSearch1}
                         onChange={handleDateChange1}
-                        className="w-3/4 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 text-sm text-slate-100"
+                        className="w-3/4 rounded-lg border-2 border-sky-800 bg-sky-300 px-3.5 py-2 text-sm text-slate-700"
                     />
                     <h3>To: </h3>
                     <input
@@ -150,7 +152,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
                         placeholder="Time..."
                         value={timeSearch2}
                         onChange={handleTimeChange2}
-                        className="w-3/4 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 text-sm text-slate-100"
+                        className="w-3/4 rounded-lg border-2 border-sky-800 bg-sky-300 px-3.5 py-2 text-sm text-slate-700"
                     />
                     <input
                         id="course-search"
@@ -158,12 +160,12 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
                         placeholder="Date..."
                         value={dateSearch2}
                         onChange={handleDateChange2}
-                        className="w-3/4 rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 text-sm text-slate-100"
+                        className="w-3/4 rounded-lg border-2 border-sky-800 bg-sky-300 px-3.5 py-2 text-sm text-slate-700"
                     />
                 </div>
 
                 <button
-                    className='rounded border border-slate-700 bg-slate-400 px-3 py-2 text-sm font-medium hover:bg-slate-500'
+                    className='rounded border-2 border-sky-800 bg-slate-400 px-3 py-2 text-sm font-medium hover:bg-slate-500'
                     onClick={handleNewEvent}
                 >
                     Create

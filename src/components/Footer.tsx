@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FooterProps } from "../types/PropTypes";
 import { CalendarEvent } from "./CalendarEvent";
-import type { CalendarEventType, User } from "../types/DataTypes";
+import type { Attendee, CalendarEventType, User } from "../types/DataTypes";
 
 export default function Footer({ currentUser, callbackAssignEvent }: FooterProps) {
     const [calendarEvents, setCalendarEvents] = useState<CalendarEventType[]>([]);
@@ -60,6 +60,32 @@ export default function Footer({ currentUser, callbackAssignEvent }: FooterProps
         setIEvents(matchedEvents);
     }
 
+    async function addAttendee(calendarEvent: CalendarEventType, isComing: boolean) {
+        try {
+            if ((calendarEvent.id != undefined) && (currentUser.name != undefined)) {
+
+                const newAttendee: Attendee = {
+                    name: currentUser.name,
+                    isComing: isComing
+                }
+                const currentAttendees = calendarEvent.attendees
+                const updatedRequests: Partial<CalendarEventType> = { attendees: [...currentAttendees, newAttendee] };
+                const response = await fetch(`http://localhost:3002/upcomingEvents/${calendarEvent.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedRequests)
+                });
+                if (!response.ok) throw new Error("PATCH request failed.");
+            }
+            else {
+                throw new Error("Not enough info to call addAttendee()")
+            }
+        } catch (error) {
+            console.error("Failed to PATCH to iRequests", error);
+            return null;
+        }
+    }
+
     //Assign event to user => remove it from requests => remove it from state requests
     //to invoke re-render.
     async function handleAccept() {
@@ -72,8 +98,25 @@ export default function Footer({ currentUser, callbackAssignEvent }: FooterProps
                     setLastEvent(undefined);
                 }
                 return updatedEvents;
-            });
 
+            });
+            await addAttendee(lastEvent, true)
+        }
+
+    }
+
+    async function handleDecline() {
+        if ((lastEvent != undefined) && (lastEvent.id != undefined)) {
+            await addAttendee(lastEvent, false)
+            await popIReq()
+            setIEvents(prev => {
+                const updatedEvents = prev.slice(0, -1);
+                if (updatedEvents.length === 0) {
+                    setLastEvent(undefined);
+                }
+                return updatedEvents;
+
+            });
         }
 
     }
@@ -94,12 +137,21 @@ export default function Footer({ currentUser, callbackAssignEvent }: FooterProps
                         </div>
                     )}
                 </div>
-                <button
-                    className="px-4 py-2 text-xs bg-slate-100 text-slate-900  font-semibold rounded-xl hover:bg-slate-300 active:bg-slate-400 transition-colors shadow"
-                    onClick={() => handleAccept()}
-                >
-                    Accept
-                </button>
+                <div className="flex flex-col">
+                    <button
+                        className="px-4 py-2 text-xs bg-emerald-500 text-slate-900  font-semibold rounded-xl hover:bg-slate-300 active:bg-slate-400 transition-colors shadow"
+                        onClick={() => handleAccept()}
+                    >
+                        Accept
+                    </button>
+                    <button
+                        className="px-4 py-2 text-xs bg-rose-400 text-slate-900 font-semibold rounded-xl hover:bg-slate-300 active:bg-slate-400 transition-colors shadow"
+                        onClick={() => handleDecline()}
+                    >
+                        Decline
+                    </button>
+                </div>
+
             </div>
         </div>
     )

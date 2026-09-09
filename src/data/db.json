@@ -5,12 +5,9 @@
       "password": "1234",
       "eventList": [
         2,
-        3,
-        5
+        3
       ],
-      "iRequests": [
-        1
-      ],
+      "iRequests": [1],
       "name": "Matt",
       "id": 1
     },
@@ -19,7 +16,8 @@
       "password": "1234123",
       "eventList": [],
       "iRequests": [
-        2
+        2,
+        3
       ],
       "name": "Kai",
       "id": 2
@@ -31,6 +29,7 @@
       "when": "2026-09-04T09:22:00.000Z",
       "location": "Seattle",
       "description": "Korean festival for the end of Summer.",
+      "attendees": [],
       "id": 1
     },
     {
@@ -38,6 +37,16 @@
       "description": "Competitive friendly matches with Emilio.",
       "location": "Seattle",
       "when": "2026-08-04T07:00:00.000Z",
+      "attendees": [
+        {
+          "name": "Kai",
+          "isComing": true
+        },
+        {
+          "name": "Matt",
+          "isComing": true
+        }
+      ],
       "id": 2
     },
     {
@@ -45,21 +54,13 @@
       "description": "Go to Walnut coffee with friend.",
       "location": "Seattle",
       "when": "2026-07-04T09:22:00.000Z",
+      "attendees": [
+        {
+          "name": "Kai",
+          "isComing": true
+        }
+      ],
       "id": 3
-    },
-    {
-      "name": "New Event",
-      "location": "Seattle",
-      "when": "2026-09-08T20:28:45.289Z",
-      "description": "What Arrr ye up to?",
-      "id": 4
-    },
-    {
-      "name": "New Event",
-      "location": "Seattle",
-      "when": "2026-09-08T20:56:37.703Z",
-      "description": "What Arrr ye up to?",
-      "id": 5
     }
   ]
 }

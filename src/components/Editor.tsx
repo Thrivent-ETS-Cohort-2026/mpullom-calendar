@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { EditorProps } from "../types/PropTypes";
-import type { CalendarEventType, User } from "../types/DataTypes";
+import type { Attendee, CalendarEventType, User } from "../types/DataTypes";
 
 export function Editor({ activeEvent, callBackView }: EditorProps) {
     const [notEditable, toggleEditable] = useState<boolean>(false);
@@ -67,7 +67,8 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
             name: nameState,
             location: locationState,
             when: newDate,
-            description: descriptionState
+            description: descriptionState,
+            attendees: activeEvent.attendees
         });
     };
 
@@ -109,6 +110,7 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                 description: updatedInfo.description,
                 location: updatedInfo.location,
                 when: updatedInfo.when,
+                attendees: updatedInfo.attendees
             }
 
 
@@ -147,7 +149,7 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
         try {
             if (activeEvent.id != undefined) {
                 const currentRequests = invitee.iRequests
-                const updatedRequests: Partial<User> = {iRequests: [...currentRequests, activeEvent.id]};
+                const updatedRequests: Partial<User> = { iRequests: [...currentRequests, activeEvent.id] };
                 const response = await fetch(`http://localhost:3002/users/${invitee.id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
@@ -157,6 +159,32 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
             }
             else {
                 throw new Error("activeEvent undefined")
+            }
+        } catch (error) {
+            console.error("Failed to PATCH to iRequests", error);
+            return null;
+        }
+    }
+
+    async function addAttendee(invitee: User) {
+        try {
+            if ((activeEvent.id != undefined) && (invitee.name != undefined)) {
+
+                const newAttendee: Attendee = {
+                    name: invitee.name,
+                    isComing: false
+                }
+                const currentAttendees = activeEvent.attendees
+                const updatedRequests: Partial<CalendarEventType> = { attendees: [...currentAttendees, newAttendee] };
+                const response = await fetch(`http://localhost:3002/upcomingEvents/${activeEvent.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedRequests)
+                });
+                if (!response.ok) throw new Error("PATCH request failed.");
+            }
+            else {
+                throw new Error("Not enough info to call addAttendee()")
             }
         } catch (error) {
             console.error("Failed to PATCH to iRequests", error);
