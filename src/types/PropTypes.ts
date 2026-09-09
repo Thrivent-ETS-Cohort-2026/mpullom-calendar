@@ -9,6 +9,8 @@ export interface LandingProps {
 export interface DashboardProps {
     currentUser: User;
     callbackAssignEvent: (eventID: number) => Promise<void>;
+    callbackLogout: () => void;
+    
 }
 
 export interface DashboardHeaderProps {
@@ -33,6 +35,7 @@ export interface EditorProps {
 export interface FooterProps {
     currentUser: User;
     callbackAssignEvent: (eventID: number) => Promise<void>;
+    callbackLogout: () => void;
 }
 
 export interface SettingsProps {

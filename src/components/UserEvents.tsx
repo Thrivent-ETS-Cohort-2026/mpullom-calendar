@@ -122,7 +122,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
 
     return (
         <>
-            <h1 className='text-2xl py-2 text-blue-800'>DashbArrrd</h1>
+            <h1 className='text-2xl py-2 font-extrabold text-blue-800'>DashbArrrd</h1>
             <div className='flex justify-between items-center gap-2 mb-4'>
                 <label htmlFor="course-search" className='hidden'>
                     Search by Date

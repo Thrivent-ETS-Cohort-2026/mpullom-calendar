@@ -8,7 +8,7 @@ import type { CalendarEventType } from "../types/DataTypes";
 import Footer from "./Footer";
 
 
-export default function Dashboard({ currentUser, callbackAssignEvent }: DashboardProps) {
+export default function Dashboard({ currentUser, callbackAssignEvent, callbackLogout}: DashboardProps) {
     const defaultEvent: CalendarEventType = {
         name: "New Event",
         location: "Seattle",
@@ -59,7 +59,8 @@ export default function Dashboard({ currentUser, callbackAssignEvent }: Dashboar
 
     const footerProps: FooterProps = {
         currentUser: currentUser,
-        callbackAssignEvent: callbackAssignEvent
+        callbackAssignEvent: callbackAssignEvent,
+        callbackLogout: callbackLogout
     }
 
     return (

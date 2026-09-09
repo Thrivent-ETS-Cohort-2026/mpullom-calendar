@@ -14,7 +14,7 @@
     {
       "email": "kai@mail.com",
       "password": "1234123",
-      "eventList": [],
+      "eventList": [2, 3],
       "iRequests": [
         2,
         3

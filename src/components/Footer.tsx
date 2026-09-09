@@ -3,7 +3,7 @@ import type { FooterProps } from "../types/PropTypes";
 import { CalendarEvent } from "./CalendarEvent";
 import type { Attendee, CalendarEventType, User } from "../types/DataTypes";
 
-export default function Footer({ currentUser, callbackAssignEvent }: FooterProps) {
+export default function Footer({ currentUser, callbackAssignEvent, callbackLogout}: FooterProps) {
     const [calendarEvents, setCalendarEvents] = useState<CalendarEventType[]>([]);
     const [iEvents, setIEvents] = useState<CalendarEventType[]>([]);
     const [lastEvent, setLastEvent] = useState<CalendarEventType>()
@@ -151,7 +151,14 @@ export default function Footer({ currentUser, callbackAssignEvent }: FooterProps
                         Decline
                     </button>
                 </div>
-
+            </div>
+            <div>
+                 <button
+                        className="px-4 py-2 text-xs mr-5 bg-rose-400 text-slate-900 font-semibold rounded-xl hover:bg-slate-300 active:bg-slate-400 transition-colors shadow"
+                        onClick={() => callbackLogout()}
+                    >
+                        Logout
+                    </button>
             </div>
         </div>
     )

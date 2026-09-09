@@ -25,18 +25,24 @@ export default function App() {
 
   const dashboardProps: DashboardProps = {
     currentUser: user,
-    callbackAssignEvent: assignEvent
+    callbackAssignEvent: assignEvent,
+    callbackLogout: logOut
   }
 
   useEffect(() => { handlePageSwitch }, [loginStatus])
 
   //Switch page if user validated
   function handlePageSwitch() {
-    if (loginStatus) {
+    if (!loginStatus) {
       return <Landing {...landingProps} />
     } else {
       return <Dashboard {...dashboardProps} />
     }
+  }
+
+  function logOut() {
+    toggleLogin(false)
+    setUser(dummyUser)
   }
 
 // Assign an event to a user
