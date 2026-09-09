@@ -209,12 +209,12 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                         disabled={!notEditable}
                         value={nameState}
                         onChange={(change) => { setNameState(change.target.value) }}
-                        className="w-full font-bold text-2xl focus:outline-0"
+                        className="w-full text-blue-800 font-bold text-2xl focus:outline-0"
                     />
                 </h2>
 
                 <div>
-                    <button className="h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2"
+                    <button className="h-6 border-2 border-slate-300 px-2 bg-slate-800 text-slate-50 rounded hover:bg-slate-400 active:bg-slate-400 mr-2"
                         onClick={() => handleDelete()}
                     >
                         Delete
@@ -224,7 +224,7 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                     >
                         Edit
                     </button>
-                    <button className={`h-6 border border-slate-600 px-2 bg-slate-500 text-slate-50 hover:bg-slate-600 active:bg-slate-400 mr-2`}
+                    <button className={`h-6 border-2 border-slate-300 px-2 bg-slate-800 text-slate-50 rounded hover:bg-slate-400 active:bg-slate-400 mr-2`}
                         onClick={() => callBackView()}
                     >
                         Go back
@@ -236,9 +236,9 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
                     type="text"
                     value={inviteName}
                     onChange={(e) => setInviteName(e.target.value)}
-                    className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                    className="w-full border-3 rounded-2xl p-3 text-white bg-blue-800 h-12"
                 />
-                <button className={`h-12 border border-slate-600 px-2 bg-slate-500 text-slate-50 rounded hover:bg-slate-600 active:bg-slate-400 mr-2 ml-2`}
+                <button className={`h-12 border-2 border-slate-300 px-2 bg-slate-800 text-slate-50 rounded hover:bg-slate-400 active:bg-slate-400 mr-2 ml-2`}
                     onClick={() => { handleInvite(inviteName) }}
                 >
                     Invite
@@ -247,46 +247,46 @@ export function Editor({ activeEvent, callBackView }: EditorProps) {
             <div className="flex flex-row items-center gap-4 mb-4">
                 {/* Time Field */}
                 <div className="flex-1">
-                    <h3 className="mb-1 font-bold">Time</h3>
+                    <h3 className="mb-1 font-bold text-blue-800">Time</h3>
                     <input
                         type="text"
                         disabled={!notEditable}
                         value={timeState}
                         onChange={(e) => setTimeState(e.target.value)}
-                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                        className="w-full border-3 rounded-2xl p-3 text-white bg-blue-800 h-12"
                     />
                 </div>
 
                 {/* Date Field */}
                 <div className="flex-1">
-                    <h3 className="mb-1 font-bold">Date</h3>
+                    <h3 className="mb-1 font-bold text-blue-800">Date</h3>
                     <input
                         type="text"
                         disabled={!notEditable}
                         value={dateState}
                         onChange={(e) => setDateState(e.target.value)}
-                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                        className="w-full border-3 rounded-2xl p-3 text-white bg-blue-800 h-12"
                     />
                 </div>
 
                 {/* Location Field */}
                 <div className="flex-1">
-                    <h3 className="mb-1 font-bold">Location</h3>
+                    <h3 className="mb-1 font-bold text-blue-800">Location</h3>
                     <input
                         type="text"
                         disabled={!notEditable}
                         value={locationState}
                         onChange={(e) => setLocationState(e.target.value)}
-                        className="w-full border rounded-2xl p-3 bg-slate-200 h-12"
+                        className="w-full border-3 rounded-2xl p-3 text-white bg-blue-800 h-12"
                     />
                 </div>
             </div>
-            <h3 className="text-left mb-2 font-bold">Description:</h3>
+            <h3 className="text-left mb-2 font-bold text-blue-800">Description:</h3>
             <textarea
                 disabled={!notEditable}
                 value={descriptionState}
                 onChange={(change) => { setDescriptionState(change.target.value) }}
-                className="grow resize-none w-full border rounded-2xl p-3 mb-2 bg-slate-200"
+                className="grow resize-none w-full border-3 rounded-2xl text-white p-3 mb-2 bg-blue-800"
             />
 
             <div className="flex justify-end">
