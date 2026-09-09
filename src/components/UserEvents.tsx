@@ -73,6 +73,7 @@ export function UserEvents({ currentUser, callBackView, callbackAssignEvent }: U
         const fromDate = fromStr ? new Date(fromStr) : null;
         const toDate = toStr ? new Date(toStr) : null;
 
+        //Require that both dates be substantiated to filter
         if ((fromDate == null) || (isNaN(fromDate.getTime())) || (toDate == null) || (isNaN(toDate.getTime()))) {
             filter(userEvents);
             return;
