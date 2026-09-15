@@ -1,26 +1,71 @@
 {
   "users": [
     {
+      "name": "Matt",
       "email": "matt@mail.com",
       "password": "1234",
       "eventList": [
         2,
-        3
+        3,
+        4,
+        6,
+        7
       ],
-      "iRequests": [1],
-      "name": "Matt",
+      "iRequests": [
+        1,
+        5,
+        5
+      ],
       "id": 1
     },
     {
-      "email": "kai@mail.com",
-      "password": "1234123",
-      "eventList": [2, 3],
+      "name": "kai",
+      "email": "",
+      "password": "",
+      "eventList": [
+        2
+      ],
       "iRequests": [
-        2,
         3
       ],
-      "name": "Kai",
       "id": 2
+    },
+    {
+      "email": "mattster@mail.com",
+      "password": "1234",
+      "eventList": [],
+      "iRequests": [],
+      "name": "mattster",
+      "id": 3
+    },
+    {
+      "email": "ari@mail.com",
+      "password": "1234",
+      "eventList": [
+        5,
+        6
+      ],
+      "iRequests": [
+        6
+      ],
+      "name": "ari",
+      "id": 4
+    },
+    {
+      "email": "ari@mail.com",
+      "password": "1234",
+      "eventList": [],
+      "iRequests": [],
+      "name": "ari",
+      "id": 5
+    },
+    {
+      "email": "ari@mail.com",
+      "password": "1234",
+      "eventList": [],
+      "iRequests": [],
+      "name": "ari",
+      "id": 6
     }
   ],
   "upcomingEvents": [
@@ -29,7 +74,12 @@
       "when": "2026-09-04T09:22:00.000Z",
       "location": "Seattle",
       "description": "Korean festival for the end of Summer.",
-      "attendees": [],
+      "attendees": [
+        {
+          "name": "Matt",
+          "isComing": false
+        }
+      ],
       "id": 1
     },
     {
@@ -50,17 +100,46 @@
       "id": 2
     },
     {
-      "name": "Coffee Date",
-      "description": "Go to Walnut coffee with friend.",
+      "name": "New Event",
       "location": "Seattle",
-      "when": "2026-07-04T09:22:00.000Z",
+      "when": "2026-09-10T21:43:47.733Z",
+      "description": "What Arrr ye up to?",
+      "attendees": [],
+      "id": 4
+    },
+    {
+      "name": "New Event",
+      "description": "Crazy town venture",
+      "location": "Seattle",
+      "when": "2026-09-14T02:10:00.000Z",
       "attendees": [
         {
-          "name": "Kai",
+          "name": "Matt",
+          "isComing": false
+        }
+      ],
+      "id": 5
+    },
+    {
+      "name": "Coffe Hang",
+      "description": "Coffee but you pay.",
+      "location": "Seattle",
+      "when": "2026-09-14T02:11:00.000Z",
+      "attendees": [
+        {
+          "name": "ari",
           "isComing": true
         }
       ],
-      "id": 3
+      "id": 6
+    },
+    {
+      "name": "New Event",
+      "location": "Seattle",
+      "when": "2026-09-14T02:11:59.077Z",
+      "description": "What Arrr ye up to?",
+      "attendees": [],
+      "id": 7
     }
   ]
 }
