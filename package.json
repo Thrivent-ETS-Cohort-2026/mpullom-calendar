@@ -30,6 +30,7 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
     "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
     "oxlint": "^1.79.0",
     "ts-jest": "^29.4.12",
     "ts-node": "^10.9.2",
